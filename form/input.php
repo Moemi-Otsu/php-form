@@ -7,11 +7,11 @@ header('X-Frame-Options: DENY');
 // スーパーグローバル変数 php 9種類
 // 連想配列
 
-//if(!empty($_POST)){
-//  echo '<pre>';
-//  var_dump($_POST);
-//  echo '</pre>';
-//}
+if(!empty($_SESSION)){
+  echo '<pre>';
+  var_dump($_SESSION);
+  echo '</pre>';
+}
 
 function h($str){
 		return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
@@ -38,6 +38,7 @@ if(!empty($_POST['btn_submit'])){
 
 <!-- 確認画面 -->
 <?php if($pageFlag === 1) : ?>
+<!-- トークンが正しいかどうかを判定 -->
 <?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
 
 <form method="POST" action="input.php">
@@ -53,16 +54,27 @@ if(!empty($_POST['btn_submit'])){
 		<input type="submit" name="btn_submit" value="送信する">
 		<input type="hidden" name="your_name" value="<?php echo h($_POST['your_name']); ?>">
 		<input type="hidden" name="email" value="<?php echo h($_POST['email']); ?>">
+		<!-- ページフラッグが変わるタイミングでcsrfが消えてしまうので、下記hiddenで保持 -->
 		<input type="hidden" name="csrf" value="<?php echo h($_POST['csrf']); ?>">
 </form>
 
+<!-- トークンが正しいかどうかを判定の endif -->
 <?php endif; ?>
+
 <?php endif; ?>
 
 
 <!-- サンクスページ -->
 <?php if($pageFlag === 2) : ?>
+<!-- トークンが正しいかどうかを判定 -->
+<?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
 送信が完了しました。
+
+<!-- トークンが残っているのがよくないので、完了画面でトークンを削除 -->
+<?php unset($_SESSION['csrfToken']); ?>
+
+<!-- トークンが正しいかどうかを判定の endif -->
+<?php endif; ?>
 <?php endif; ?>
 
 
@@ -85,6 +97,7 @@ $token = $_SESSION['csrfToken'];
 		<input type="email" name="email" value="<?php if(!empty($_POST['email'])){ echo h($_POST['email']); } ?>">
 		<br>
   <input type="submit" name="btn_confirm" value="確認する">
+		<!-- 下記の記述で、valueのなかにトークンが入ってくる -->
 		<input type="hidden" name="csrf" value="<?php echo $token; ?>">
 		
 </form>
