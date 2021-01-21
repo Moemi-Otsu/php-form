@@ -102,18 +102,26 @@ $token = $_SESSION['csrfToken'];
 		性別
 		<input type="radio" name="gender" value="0">男性
 		<input type="radio" name="gender" value="1">女性
+		<br>
 		年齢
 		<select name="age">
 				<option value="">選択してください</option>
 				<option value="1">〜19歳</option>
 				<option value="2">20歳〜29歳</option>
 				<option value="3">30歳〜39歳</option>
-				<option value="4">〜19歳</option>
-				<option value="5">〜19歳</option>
-				<option value="6">〜19歳</option>
+				<option value="4">40歳〜49歳</option>
+				<option value="5">50歳〜59歳</option>
+				<option value="6">60歳〜69歳</option>
 		</select>
+		<br>
 		お問い合わせ内容
-		注意事項のチェック
+		<textarea name="contact">
+				<?php if(!empty($_POST['contact'])){echo h($_POST['contact']) ;} ?>
+		</textarea>
+		<br>
+		<input type="checkbox" name="caution" value="1">注意事項にチェックする
+		<br>
+		
   <input type="submit" name="btn_confirm" value="確認する">
 		<!-- 下記の記述で、valueのなかにトークンが入ってくる -->
 		<input type="hidden" name="csrf" value="<?php echo $token; ?>">
