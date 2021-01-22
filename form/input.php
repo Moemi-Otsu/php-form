@@ -7,9 +7,9 @@ header('X-Frame-Options: DENY');
 // スーパーグローバル変数 php 9種類
 // 連想配列
 
-if(!empty($_SESSION)){
+if(!empty($_POST)){
   echo '<pre>';
-  var_dump($_SESSION);
+  var_dump($_POST);
   echo '</pre>';
 }
 
