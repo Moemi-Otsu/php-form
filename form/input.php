@@ -121,6 +121,10 @@ $token = $_SESSION['csrfToken'];
 ?>
 
 <?php if(!empty($errors) && !empty($_POST['btn_confirm']) ) : ?>
+<?php echo '<ul>'; ?>s
+		<li></li>
+</ul>
+
 <?php endif ;?>
 
 <form method="POST" action="input.php">
