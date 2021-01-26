@@ -121,9 +121,13 @@ $token = $_SESSION['csrfToken'];
 ?>
 
 <?php if(!empty($errors) && !empty($_POST['btn_confirm']) ) : ?>
-<?php echo '<ul>'; ?>s
-		<li></li>
-</ul>
+<?php echo '<ul>'; ?>
+<?php
+		foreach($errors as $error){
+				echo '<li>' . $error . '</li>';
+		}
+?>
+<?php echo '</ul>' ?>
 
 <?php endif ;?>
 
