@@ -6,3 +6,4 @@ echo __FILE__;
 // パスワード（暗号化）
 echo '<br>';
 echo(password_hash('password123', PASSWORD_BCRYPT));
+// $2y$10$btz2vTTTszQthyQ9fwPcYua/Uy9IStUyF17F544vOn8NQ181mdw3G
